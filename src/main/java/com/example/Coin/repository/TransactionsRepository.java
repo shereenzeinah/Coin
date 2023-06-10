@@ -1,11 +1,9 @@
 package com.example.Coin.repository;
 
-import com.example.Coin.models.Coin;
+import com.example.Coin.models.Transactions;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface CoinRepository extends MongoRepository<Coin, Long> {
-
-    Coin findByUserId(Long userId);
+public interface TransactionsRepository extends MongoRepository<Transactions, Integer> {
 }
