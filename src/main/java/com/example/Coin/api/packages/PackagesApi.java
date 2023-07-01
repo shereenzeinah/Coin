@@ -28,8 +28,6 @@ public class PackagesApi {
 
         Package packageObj = packageService.createPackage(packageDTO);
 
-        // TODO: publish create event to kafka
-
         return packageObj;
     }
 
@@ -38,8 +36,6 @@ public class PackagesApi {
 
         Package packageObj = packageService.editPackage(packageDTO);
 
-        // TODO: publish edit event to kafka
-
         return packageObj;
     }
 
@@ -47,7 +43,5 @@ public class PackagesApi {
     public void deletePackage(@PathVariable String id) {
 
         packageService.deletePackage(id);
-
-        // TODO: publish delete event to kafka
     }
 }
