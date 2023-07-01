@@ -39,6 +39,7 @@ public class CoinServiceImpl implements CoinService {
                 .userId(userId)
                 .build();
         transactionsRepository.save(transactions);
+        coinRepository.save(userCoinObject);
         return true;
     }
 
@@ -56,6 +57,7 @@ public class CoinServiceImpl implements CoinService {
                 .userId(userId)
                 .build();
         transactionsRepository.save(transactions);
+        coinRepository.save(userCoinObject);
         return null;
     }
 

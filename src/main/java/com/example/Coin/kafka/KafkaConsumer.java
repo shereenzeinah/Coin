@@ -1,7 +1,10 @@
 package com.example.Coin.kafka;
 
 import com.example.Coin.dto.CoinConsumedEvent;
+import com.example.Coin.services.coin.CoinService;
 import com.fasterxml.jackson.databind.ObjectMapper;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.kafka.support.KafkaHeaders;
 import org.springframework.messaging.handler.annotation.Header;
@@ -9,6 +12,9 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class KafkaConsumer {
+
+    @Autowired
+    CoinService coinService;
 
     @KafkaListener(
             topics = {
@@ -34,18 +40,21 @@ public class KafkaConsumer {
 
     }
 
-    public void handleEvent(CoinConsumedEvent CoinConsumedEvent, @Header(KafkaHeaders.RECEIVED_TOPIC) String topic) {
+    public void handleEvent(CoinConsumedEvent coinConsumedEvent, @Header(KafkaHeaders.RECEIVED_TOPIC) String topic) {
         switch (topic) {
             case "payment-processed": {
-                // TODO Handle payment processed event
+                // Add balance to wallet
+                coinService.addCoins(coinConsumedEvent.getUserId(), coinConsumedEvent.getAmount());
                 break;
             }
             case "order-created": {
-                // TODO Handle order created event
+                // Deduct balance from wallet
+                coinService.deductCoins(coinConsumedEvent.getUserId(), coinConsumedEvent.getAmount());
                 break;
             }
             case "post-created": {
-                // TODO Handle post created event
+                // Deduct balance from wallet
+                coinService.deductCoins(coinConsumedEvent.getUserId(), coinConsumedEvent.getAmount());
                 break;
             }
         }
