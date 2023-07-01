@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.example.Coin.services.packages.PackageService;
 
-import com.example.Coin.repository.PackageRepository;
 import java.util.List;
 
 @RestController
@@ -28,8 +27,6 @@ public class PackagesApi {
 
         Package packageObj = packageService.createPackage(packageDTO);
 
-        // TODO: publish create event to kafka
-
         return packageObj;
     }
 
@@ -38,8 +35,6 @@ public class PackagesApi {
 
         Package packageObj = packageService.editPackage(packageDTO);
 
-        // TODO: publish edit event to kafka
-
         return packageObj;
     }
 
@@ -47,7 +42,5 @@ public class PackagesApi {
     public void deletePackage(@PathVariable String id) {
 
         packageService.deletePackage(id);
-
-        // TODO: publish delete event to kafka
     }
 }

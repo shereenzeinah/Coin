@@ -14,7 +14,7 @@ import java.util.Date;
 @Setter
 public class Transactions {
     @Id
-    public Integer id;
+    public String id;
 
     public Date transactionDate;
 
