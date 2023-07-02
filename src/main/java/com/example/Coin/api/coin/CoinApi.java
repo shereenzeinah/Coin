@@ -12,7 +12,7 @@ public class CoinApi {
     private CoinService coinService;
 
     @GetMapping(path = "/{userId}", produces = "application/json")
-    public Long getBalance(@PathVariable Long userId) {
+    public int getBalance(@PathVariable Long userId) {
         return coinService.getCoins(userId);
     }
 

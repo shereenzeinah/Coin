@@ -33,16 +33,21 @@ public class CoinServiceImpl implements CoinService {
     KafkaTemplate<String, Object> kafkaTemplate;
 
     @Override
-    public Long getCoins(Long userId) {
+    public int getCoins(Long userId) {
         Coin userCoinObject = coinRepository.findByUserId(userId);
         return userCoinObject.getBalanceAvailable();
     }
 
     @Override
-    public Boolean addCoins(Long userId, Long coins) {
+    public Boolean addCoins(Long userId, int coins) {
         // Add coins
         Coin userCoinObject = coinRepository.findByUserId(userId);
-        long newBalance = userCoinObject.getBalanceAvailable() + coins;
+        if (userCoinObject == null) {
+            userCoinObject = new Coin();
+            userCoinObject.setBalanceAvailable(0);
+            userCoinObject.setUserId(userId);
+        }
+        int newBalance = userCoinObject.getBalanceAvailable() + coins;
         userCoinObject.setBalanceAvailable(newBalance);
         // Update transactions
         Transactions transactions = Transactions.builder()
@@ -61,9 +66,9 @@ public class CoinServiceImpl implements CoinService {
     }
 
     @Override
-    public Boolean deductCoins(Long userId, Long deductedAmount) {
+    public Boolean deductCoins(Long userId, int deductedAmount) {
         Coin userCoinObject = coinRepository.findByUserId(userId);
-        long newBalance = userCoinObject.getBalanceAvailable() - deductedAmount;
+        int newBalance = userCoinObject.getBalanceAvailable() - deductedAmount;
         userCoinObject.setBalanceAvailable(newBalance);
         // Update transactions
         Transactions transactions = Transactions.builder()
@@ -83,7 +88,7 @@ public class CoinServiceImpl implements CoinService {
     }
 
     @Override
-    public Boolean validateBalance(Long userId, Long amount) {
+    public Boolean validateBalance(Long userId, int amount) {
         Coin userCoinObject = coinRepository.findByUserId(userId);
         if (userCoinObject.getBalanceAvailable() >= amount) {
             return true;
