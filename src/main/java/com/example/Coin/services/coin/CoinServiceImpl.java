@@ -35,6 +35,7 @@ public class CoinServiceImpl implements CoinService {
     @Override
     public int getCoins(Long userId) {
         Coin userCoinObject = coinRepository.findByUserId(userId);
+        if(userCoinObject == null) return 0;
         return userCoinObject.getBalanceAvailable();
     }
 

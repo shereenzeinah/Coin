@@ -81,3 +81,28 @@ http://localhost:8080/package/delete/64a07f3da7d1035e2c46901b
 http://localhost:8080/package/all
 
 ```
+
+
+## Start Zookeeper Server:
+
+    ```
+        bin/zookeeper-server-start.sh config/zookeeper.properties
+    ```
+
+## Start Kafka Server:
+
+    ```
+        bin/kafka-server-start.sh config/server.properties
+    ```
+
+## Maven Install:
+
+    ```
+        mvn clean install
+    ```
+
+## SpringBoot Run:
+
+    ```
+        mvn spring-boot:run
+    ```

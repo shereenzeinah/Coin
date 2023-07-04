@@ -10,6 +10,7 @@ import com.example.Coin.services.packages.PackageService;
 
 import java.util.List;
 
+@CrossOrigin
 @RestController
 @RequestMapping("/package")
 public class PackagesApi {
@@ -38,7 +39,7 @@ public class PackagesApi {
         return packageObj;
     }
 
-    @PostMapping(path = "/delete/{id}")
+    @DeleteMapping(path = "/delete/{id}")
     public void deletePackage(@PathVariable String id) {
 
         packageService.deletePackage(id);
